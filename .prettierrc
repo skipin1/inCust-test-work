@@ -1,0 +1,15 @@
+{
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "requirePragma": false,
+  "arrowParens": "always",
+  "printWidth": 110,
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "printWidth": 80
+      }
+    }
+  ]
+}
