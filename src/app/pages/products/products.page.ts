@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonSearchbar } from '@ionic/angular';
 import { debounceTime, distinctUntilChanged, map, takeWhile } from 'rxjs/operators';
 import { ApiService, Product } from 'src/app/services/api.service';
@@ -11,9 +11,9 @@ import { StorageService } from '../../services/storage.service';
   templateUrl: './products.page.html',
   styleUrls: ['./products.page.scss'],
 })
-export class ProductsPage implements OnInit {
+export class ProductsPage implements OnInit, OnDestroy {
   products: Product[];
-  private searchValue: string;
+  private searchValue: string = '';
   private isComponentPresent: boolean;
   private itemsCount = environment.itemsCount;
   private searchValueName = 'searchValue';
@@ -28,14 +28,16 @@ export class ProductsPage implements OnInit {
   async ngOnInit() {
     this.isComponentPresent = true;
     await this.apiService.getJSONData();
-    this.searchValue = (await this.storageService.get(this.searchValueName)) || '';
-    this.products = this.apiService.getFilteredProducts(undefined, undefined, this.searchValue);
     this.watchSearchbarInput();
   }
 
   async ionViewDidEnter() {
-    (await this.searchBar.getInputElement()).value = this.searchValue;
-    await this.searchBar.setFocus();
+    this.searchValue = (await this.storageService.get(this.searchValueName)) || '';
+    this.products = this.apiService.getFilteredProducts(undefined, undefined, this.searchValue);
+    if (this.searchValue.length) {
+      (await this.searchBar.getInputElement()).value = this.searchValue;
+      await this.searchBar.setFocus();
+    }
   }
 
   ngOnDestroy(): void {
@@ -73,12 +75,7 @@ export class ProductsPage implements OnInit {
   }
 
   showProduct(product: Product): void {
-    const navigationExtras: NavigationExtras = {
-      state: {
-        product,
-      },
-    };
-    this.router.navigate(['/products', product.upc], navigationExtras);
+    this.router.navigate(['/products', product.upc]);
   }
 
   trackByFunc(index, item: Product) {

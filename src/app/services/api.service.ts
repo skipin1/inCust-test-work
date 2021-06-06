@@ -41,4 +41,8 @@ export class ApiService {
       .filter((product) => product.name.toLowerCase().indexOf(searchvalue.toLowerCase()) > -1)
       .slice(start, end);
   }
+
+  getProduct(upc: string): Product {
+    return this.data.find((product) => product.upc === upc);
+  }
 }

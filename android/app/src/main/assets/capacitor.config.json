@@ -1,0 +1,6 @@
+{
+	"appId": "com.example.app",
+	"appName": "incust",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

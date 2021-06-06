@@ -1,5 +1,7 @@
 {
   "name": "incust",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

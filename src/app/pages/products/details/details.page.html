@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="product; else loading">
+    <ion-row>
+      <ion-col>
+        <div class="ion-text-center">
+          <ion-img
+            [src]="product.image"
+            [title]="product.name"
+            [alt]="product.name +' '+ product.model"
+          ></ion-img>
+        </div>
+        <h1 [innerHTML]="product.name"></h1>
+        <ion-text color="medium">
+          <p [innerHTML]="product.description"></p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="setAmount(100)">$100</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" (click)="setAmount(10)">$10</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" (click)="setQuantity(2)">2 qty</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" (click)="setQuantity(9)">9 qty</ion-button>
+      </ion-col>
+    </ion-row>
+    <form [formGroup]="calcForm" (submit)="submitForm()" novalidate>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Amount, $</ion-label>
+            <ion-input formControlName="amount" inputmode="decimal"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Quantity</ion-label>
+            <ion-input
+              formControlName="quantity"
+              inputmode="decimal"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+
+  <ng-template #loading>
+    <ion-grid class="full-height">
+      <ion-row
+        class="full-height ion-align-items-center ion-justify-content-center"
+      >
+        <ion-col class="ion-text-center">
+          <ion-spinner name="bubbles"></ion-spinner>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+</ion-content>

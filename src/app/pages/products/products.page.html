@@ -14,7 +14,11 @@
       (click)="showProduct(product)"
     >
       <ion-avatar slot="start">
-        <img [src]="product.image" />
+        <ion-img
+          [src]="product.image"
+          [title]="product.name"
+          [alt]="product.name +' '+ product.model"
+        ></ion-img>
       </ion-avatar>
       <ion-label>
         <h2 [innerHTML]="product.name"></h2>
