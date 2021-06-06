@@ -17,7 +17,7 @@ export class ProductsPage implements OnInit, OnDestroy {
   private isComponentPresent: boolean;
   private itemsCount = environment.itemsCount;
   private searchValueName = 'searchValue';
-  @ViewChild(IonSearchbar, { static: false }) searchBar: IonSearchbar;
+  @ViewChild(IonSearchbar) searchBar: IonSearchbar;
 
   constructor(
     private apiService: ApiService,
